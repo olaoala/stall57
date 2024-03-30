@@ -1,0 +1,13 @@
+.card{
+    padding: auto;
+    background-color: transparent;
+    margin-bottom: 2em;
+    border: .1em black solid;
+    border-radius: 1em;
+    width: 22em;
+}
+.img{
+    height: 15em;
+    padding: .8em;
+    border-radius: 2em;
+}

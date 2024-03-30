@@ -5,9 +5,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('./Assets/bgg.gif');
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@font-face {
+  font-family: bubble;
+  src: url(./fonts/RubikBubbles-Regular.ttf);
+}
+@font-face {
+  font-family: scribble;
+  src: url(./fonts/RubikScribble-Regular.ttf);
+}
+
+@font-face {
+  font-family: caveat;
+  src: url(./fonts/Caveat-Regular.ttf);
 }
