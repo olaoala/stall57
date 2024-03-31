@@ -9,6 +9,11 @@ import trinkets from '../Assets/trinkets.jpeg'
 import intimates from '../Assets/intimates.jpeg'
 import AboutUsPage from '../Pages/Contact';
 import { v4 as uuidv4 } from 'uuid';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import { FaShoppingCart } from "react-icons/fa";
+import styled from './Css/Product.module.css';
+
 
 
 
@@ -16,6 +21,9 @@ import { v4 as uuidv4 } from 'uuid';
   const ProductPage = () => {
 
     const sessionId = uuidv4();
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [catName, setCatName] = useState([]);
+    const [cartCount, setCartCount] = useState(0);
 
 
     const { category } = useParams();
@@ -147,21 +155,17 @@ import { v4 as uuidv4 } from 'uuid';
           quantity,
         };
       }
-    
       // Update both sessionStorage and localStorage
       sessionStorage.setItem('cart', JSON.stringify(existingCart));
       localStorage.setItem(sessionId, JSON.stringify(existingCart));
       localStorage.setItem('sessionId', sessionId);
+      setCartCount((prevCount) => prevCount + quantity);
 
     
       console.log(sessionId, existingCart, existingCart.length);
     };
-    
-    
 
 
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [catName, setCatName] = useState([]);
 
 
   useEffect(() => {
@@ -191,7 +195,21 @@ import { v4 as uuidv4 } from 'uuid';
     return (
       <div>
         <Row>
-        <p style={{fontFamily:'bubble', color:'#EADCBD', margin:'2em 0em 2em 6em'}}>{categoryText}</p>
+        <Navbar className="bg-body-light" style={{fontFamily:'bubble'}}>
+      <Container>
+        <Navbar.Brand href="#home" style={{ color:'#EADCBD'}}>{categoryText}</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+          <Button variant="outline-secondary" style={{ color:'#EADCBD'}}>
+          <FaShoppingCart />
+          <span className={styled.count}>{cartCount}</span>
+          </Button>{' '}
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+        {/* <p style={{fontFamily:'bubble', color:'#EADCBD', margin:'2em 0em 2em 6em'}}>{categoryText}</p> */}
 
         </Row>
         <Row className="justify-content-center">

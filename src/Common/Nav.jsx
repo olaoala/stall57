@@ -13,8 +13,6 @@ function Nav() {
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
           <Button variant="outline-secondary" style={{ color:'#EADCBD'}}>Preorder Now!</Button>{' '}
-
-            {/* <a href="#login">Preorder Now!</a> */}
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
