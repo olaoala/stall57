@@ -8,10 +8,15 @@ import jewelry from '../Assets/jewelry.jpg'
 import trinkets from '../Assets/trinkets.jpeg'
 import intimates from '../Assets/intimates.jpeg'
 import AboutUsPage from '../Pages/Contact';
+import { v4 as uuidv4 } from 'uuid';
+
 
 
   
   const ProductPage = () => {
+
+    const sessionId = uuidv4();
+
 
     const { category } = useParams();
 
@@ -130,28 +135,28 @@ import AboutUsPage from '../Pages/Contact';
             categoryId : 1
           }
     ];
-    const addToCart = (product) => {
-      // Get the user's session ID
-      const sessionId = window.sessionStorage.getItem('sessionId');
+    const addToCart = (product, quantity) => {
+      const sessionId = localStorage.getItem('sessionId') || uuidv4();
+      const existingCart = JSON.parse(sessionStorage.getItem('cart')) || {};
     
-      // Get the current cart data from localStorage
-      let cart = JSON.parse(localStorage.getItem(sessionId)) || {};
-    
-      // If the product is already in the cart, increment the quantity
-      if (cart[product.id]) {
-        cart[product.id].quantity += 1;
+      if (existingCart[product.id]) {
+        existingCart[product.id].quantity += quantity;
       } else {
-        // Otherwise, add the product to the cart with a quantity of 1
-        cart[product.id] = {
+        existingCart[product.id] = {
           ...product,
-          quantity: 1
+          quantity,
         };
       }
     
-      // Save the updated cart data back to localStorage
-      localStorage.setItem(sessionId, JSON.stringify(cart));
-      console.log(cart, localStorage,sessionId)
+      // Update both sessionStorage and localStorage
+      sessionStorage.setItem('cart', JSON.stringify(existingCart));
+      localStorage.setItem(sessionId, JSON.stringify(existingCart));
+      localStorage.setItem('sessionId', sessionId);
+
+    
+      console.log(sessionId, existingCart, existingCart.length);
     };
+    
     
 
 
