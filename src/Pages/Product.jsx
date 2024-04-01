@@ -9,7 +9,7 @@ import trinkets from '../Assets/trinkets.jpeg'
 import intimates from '../Assets/intimates.jpeg'
 import AboutUsPage from '../Pages/Contact';
 import { v4 as uuidv4 } from 'uuid';
-import Navbar from 'react-bootstrap/Navbar';
+import ReceiptModal from '../Common/RecieptModal'; 
 import Button from 'react-bootstrap/Button';
 import { FaShoppingCart } from "react-icons/fa";
 import styled from './Css/Product.module.css';
@@ -24,6 +24,8 @@ import styled from './Css/Product.module.css';
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [catName, setCatName] = useState([]);
     const [cartCount, setCartCount] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+    const [cartItems, setCartItems] = useState([]); 
 
 
     const { category } = useParams();
@@ -146,26 +148,58 @@ import styled from './Css/Product.module.css';
     const addToCart = (product, quantity) => {
       const sessionId = localStorage.getItem('sessionId') || uuidv4();
       const existingCart = JSON.parse(sessionStorage.getItem('cart')) || {};
+      const updatedCartItems = [...cartItems];
+      const existingCartItem = updatedCartItems.find((item) => item.id === product.id);
+
     
-      if (existingCart[product.id]) {
-        existingCart[product.id].quantity += quantity;
-      } else {
-        existingCart[product.id] = {
-          ...product,
-          quantity,
-        };
-      }
+      // if (existingCart[product.id]) {
+      //   existingCart[product.id].quantity += quantity;
+      // } else {
+      //   existingCart[product.id] = {
+      //     ...product,
+      //     quantity,
+      //   };
+      // }
       // Update both sessionStorage and localStorage
+
+      if (existingCartItem) {
+        // If the product already exists in the cart, update its quantity
+        existingCartItem.quantity += quantity;
+      } else {
+        // Otherwise, add the product to the cart
+        updatedCartItems.push({
+          id: product.id,
+          name: product.description,
+          price: product.price,
+          image: product.image,
+          quantity,
+        });
+      }    
       sessionStorage.setItem('cart', JSON.stringify(existingCart));
       localStorage.setItem(sessionId, JSON.stringify(existingCart));
       localStorage.setItem('sessionId', sessionId);
-      setCartCount((prevCount) => prevCount + quantity);
+
+
+      
+      const uniqueItemCount = Object.keys(existingCart).length;
+      setCartCount(uniqueItemCount);
+      setCartItems(updatedCartItems);
 
     
-      console.log(sessionId, existingCart, existingCart.length);
+      console.log(sessionId, existingCart, cartCount, cartItems);
     };
 
+    const handleCartClick = () => {
+      setShowModal(true);
+      console.log(sessionId, cartCount, cartItems);
 
+    };
+
+    const handleCartUnClick = () => {
+      setShowModal(false);
+      console.log(sessionId, cartCount, cartItems);
+
+    };
 
 
   useEffect(() => {
@@ -194,24 +228,26 @@ import styled from './Css/Product.module.css';
 
     return (
       <div>
-        <Row>
-        <Navbar className="bg-body-light" style={{fontFamily:'bubble'}}>
       <Container>
-        <Navbar.Brand href="#home" style={{ color:'#EADCBD'}}>{categoryText}</Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-          <Button variant="outline-secondary" style={{ color:'#EADCBD'}}>
+      <Row style={{margin: '2em 0em 2em 2em' }}>
+      <Col>
+      <p style={{ fontFamily: 'bubble', color: '#EADCBD', float: 'left'}}>
+          {categoryText}
+        </p>
+      </Col>
+      <Col style={{float: 'right'}}>
+      <Button variant="outline-secondary" onClick={handleCartClick} style={{ color: '#EADCBD', float: 'right'}}>
+      <span className={styled.count}>{Number(cartCount)}</span>
+      <ReceiptModal
+        show={showModal}
+        onHide={handleCartUnClick}
+        cartItems={cartItems}
+      />
           <FaShoppingCart />
-          <span className={styled.count}>{cartCount}</span>
-          </Button>{' '}
-          </Navbar.Text>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-        {/* <p style={{fontFamily:'bubble', color:'#EADCBD', margin:'2em 0em 2em 6em'}}>{categoryText}</p> */}
-
-        </Row>
+        </Button>
+      </Col>
+      </Row>
+    </Container>
         <Row className="justify-content-center">
           {currentProducts.map((product, idx) => (
             <Col sm={4} key={product.id} className="d-flex justify-content-center">

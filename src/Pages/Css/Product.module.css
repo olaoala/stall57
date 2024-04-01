@@ -3,11 +3,11 @@
 }
 .count{
     position: absolute; 
-  top: -1px; 
-  right: -1px; 
   background-color: transparent; 
   color: #ffffff;
   font-size: 12px; 
   border-radius: 50%; 
   padding: 4px 6px;
+  margin: -2.5em 0em 5em 2em;
+  font-family: bubble;
 }
