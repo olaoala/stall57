@@ -25,7 +25,9 @@ import styled from './Css/Product.module.css';
     const [catName, setCatName] = useState([]);
     const [cartCount, setCartCount] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    const [cartItems, setCartItems] = useState([]); 
+    // const [cartItems, setCartItems] = useState([]); 
+    const cartItems = [];
+    const [existingCart, setExistingCart] = useState({});
 
 
     const { category } = useParams();
@@ -147,48 +149,29 @@ import styled from './Css/Product.module.css';
     ];
     const addToCart = (product, quantity) => {
       const sessionId = localStorage.getItem('sessionId') || uuidv4();
-      const existingCart = JSON.parse(sessionStorage.getItem('cart')) || {};
-      const updatedCartItems = [...cartItems];
-      const existingCartItem = updatedCartItems.find((item) => item.id === product.id);
-
+      const existingCartData = JSON.parse(sessionStorage.getItem('cart')) || {};
     
-      // if (existingCart[product.id]) {
-      //   existingCart[product.id].quantity += quantity;
-      // } else {
-      //   existingCart[product.id] = {
-      //     ...product,
-      //     quantity,
-      //   };
-      // }
-      // Update both sessionStorage and localStorage
-
-      if (existingCartItem) {
-        // If the product already exists in the cart, update its quantity
-        existingCartItem.quantity += quantity;
+      if (existingCartData[product.id]) {
+        existingCartData[product.id].quantity += quantity;
       } else {
-        // Otherwise, add the product to the cart
-        updatedCartItems.push({
-          id: product.id,
-          name: product.description,
-          price: product.price,
-          image: product.image,
+        existingCartData[product.id] = {
+          ...product,
           quantity,
-        });
-      }    
-      sessionStorage.setItem('cart', JSON.stringify(existingCart));
-      localStorage.setItem(sessionId, JSON.stringify(existingCart));
-      localStorage.setItem('sessionId', sessionId);
-
-
-      
-      const uniqueItemCount = Object.keys(existingCart).length;
-      setCartCount(uniqueItemCount);
-      setCartItems(updatedCartItems);
-
+        };
+      }
     
-      console.log(sessionId, existingCart, cartCount, cartItems);
+      // Update both sessionStorage and localStorage
+      sessionStorage.setItem('cart', JSON.stringify(existingCartData));
+      localStorage.setItem(sessionId, JSON.stringify(existingCartData));
+      localStorage.setItem('sessionId', sessionId);
+    
+      // Update cart count based on the number of unique items
+      const uniqueItemCount = Object.keys(existingCartData).length;
+      setCartCount(uniqueItemCount);
+      setExistingCart(existingCartData)    
+      console.log(sessionId, existingCart, uniqueItemCount);
     };
-
+     
     const handleCartClick = () => {
       setShowModal(true);
       console.log(sessionId, cartCount, cartItems);
@@ -213,9 +196,6 @@ import styled from './Css/Product.module.css';
   }, {});
 
   const categoryText = categoryMap[Number(category)];
-
-  
-
     const [currentPage, setCurrentPage] = React.useState(1);
     const productsPerPage = 6; 
     const totalPages = Math.ceil(products.length / productsPerPage);
@@ -241,7 +221,7 @@ import styled from './Css/Product.module.css';
       <ReceiptModal
         show={showModal}
         onHide={handleCartUnClick}
-        cartItems={cartItems}
+        existingCart={existingCart}
       />
           <FaShoppingCart />
         </Button>

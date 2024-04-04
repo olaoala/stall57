@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import styled, { keyframes } from 'styled-components';
-import NavBar from '../Common/Nav';
+import NavBar from '../Common/Nav.jsx';
 import { jello } from 'react-animations';
 import 'animate.css';
 import styles from './Css/Landing.module.css'
@@ -9,7 +9,7 @@ import gifts from '../Assets/gifts.jpeg'
 import jewelry from '../Assets/jewelry.jpg'
 import trinkets from '../Assets/trinkets.jpeg'
 import intimates from '../Assets/intimates.jpeg'
-import CatList from '../Common/CategoryList'
+import CatList from '../Common/CategoryList.jsx'
 
 
 const jelloAnimation = keyframes`${jello}`;
