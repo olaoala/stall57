@@ -2,6 +2,7 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import styled from './Css/ProductCards.module.css';
+import {Link} from 'react-router-dom'
 
 
 
@@ -13,6 +14,11 @@ const ProductCard = ({ product, addToCart }) => (
       <Card.Title>{product.price}</Card.Title>
       <Card.Text>{product.description}</Card.Text>
       <Button variant="primary" onClick={() => addToCart(product)}>Add to Cart</Button>
+      {/* <Link to={{ pathname: ' https://wa.me/2349025794716' }}>
+      <Button variant="primary" >Yass!! I want this</Button>
+      </Link> */}
+
+
     </Card.Body>
   </Card>
 );

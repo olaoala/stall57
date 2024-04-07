@@ -13,6 +13,8 @@ import ReceiptModal from '../Common/RecieptModal';
 import Button from 'react-bootstrap/Button';
 import { FaShoppingCart } from "react-icons/fa";
 import styled from './Css/Product.module.css';
+import CatList from '../Common/CategoryList.jsx'
+
 
 
 
@@ -25,9 +27,7 @@ import styled from './Css/Product.module.css';
     const [catName, setCatName] = useState([]);
     const [cartCount, setCartCount] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    // const [cartItems, setCartItems] = useState([]); 
-    const cartItems = [];
-    const [existingCart, setExistingCart] = useState({});
+    const [existingCart, setExistingCart] = useState([]);
 
 
     const { category } = useParams();
@@ -61,14 +61,17 @@ import styled from './Css/Product.module.css';
         image: jewelry,
         price: '$29.99',
         description: 'This is a great product.',
-        categoryId : 4
+        categoryId : 4,
+        quantity:1
       },
       {
         id: 2,
         image: jewelry,
         price: '$39.99',
         description: 'This product is even better.',
-        categoryId : 3
+        categoryId : 3,
+        quantity:1
+
   
       },
       {
@@ -76,7 +79,9 @@ import styled from './Css/Product.module.css';
         image: jewelry,
         price: '$49.99',
         description: 'This is the best product.',
-        categoryId : 1
+        categoryId : 1,
+        quantity:1
+
   
       },
       {
@@ -84,7 +89,9 @@ import styled from './Css/Product.module.css';
           image: jewelry,
           price: '$49.99',
           description: 'This is the best product.',
-          categoryId : 1
+          categoryId : 1,
+          quantity:1
+
   
         },
         {
@@ -92,7 +99,9 @@ import styled from './Css/Product.module.css';
           image: jewelry,
           price: '$29.99',
           description: 'This is a great product.',
-          categoryId : 2
+          categoryId : 2,
+          quantity:1
+
   
         },
         {
@@ -100,7 +109,9 @@ import styled from './Css/Product.module.css';
           image: jewelry,
           price: '$39.99',
           description: 'This product is even better.',
-          categoryId : 2
+          categoryId : 2,
+          quantity:1
+
   
         },
         {
@@ -108,7 +119,9 @@ import styled from './Css/Product.module.css';
           image: jewelry,
           price: '$49.99',
           description: 'This is the best product.',
-          categoryId : 3
+          categoryId : 3,
+          quantity:1
+
   
         },
         {
@@ -116,35 +129,45 @@ import styled from './Css/Product.module.css';
             image: jewelry,
             price: '$49.99',
             description: 'This is the best product.',
-            categoryId : 4
+            categoryId : 4,
+            quantity:1
+
           },
           {
             id: 9,
             image: jewelry,
             price: '$49.99',
             description: 'This is the best product.',
-            categoryId : 4
+            categoryId : 4,
+            quantity:1
+
           },
           {
             id: 10,
             image: jewelry,
             price: '$49.99',
             description: 'This is the best product.',
-            categoryId : 4
+            categoryId : 4,
+            quantity:1
+
           },
           {
             id: 11,
             image: jewelry,
             price: '$49.99',
             description: 'This is the best product.',
-            categoryId : 4
+            categoryId : 4,
+            quantity:1
+
           },
           {
             id: 12 ,
             image: jewelry,
             price: '$49.99',
             description: 'This is the best product.',
-            categoryId : 1
+            categoryId : 1,
+            quantity:1
+
           }
     ];
     const addToCart = (product, quantity) => {
@@ -159,7 +182,7 @@ import styled from './Css/Product.module.css';
           quantity,
         };
       }
-    
+ 
       // Update both sessionStorage and localStorage
       sessionStorage.setItem('cart', JSON.stringify(existingCartData));
       localStorage.setItem(sessionId, JSON.stringify(existingCartData));
@@ -171,16 +194,16 @@ import styled from './Css/Product.module.css';
       setExistingCart(existingCartData)    
       console.log(sessionId, existingCart, uniqueItemCount);
     };
-     
+
     const handleCartClick = () => {
       setShowModal(true);
-      console.log(sessionId, cartCount, cartItems);
+      console.log(sessionId, cartCount, existingCart);
 
     };
 
     const handleCartUnClick = () => {
       setShowModal(false);
-      console.log(sessionId, cartCount, cartItems);
+      console.log(sessionId, cartCount, existingCart);
 
     };
 
@@ -199,7 +222,6 @@ import styled from './Css/Product.module.css';
     const [currentPage, setCurrentPage] = React.useState(1);
     const productsPerPage = 6; 
     const totalPages = Math.ceil(products.length / productsPerPage);
-    console.log(filteredProducts,Number(category))
     const currentProducts = filteredProducts.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage);
   
     const changePage = (pageNumber) => {
@@ -208,6 +230,14 @@ import styled from './Css/Product.module.css';
 
     return (
       <div>
+      <Row style={{padding:'1em', textDecorationLine:'none'}} className="justify-content-center">
+
+          {categories.map((category, id) => (
+            <Col key={category.id} className="d-flex justify-content-center">
+              <CatList category={category} />
+            </Col>
+          ))}
+        </Row>
       <Container>
       <Row style={{margin: '2em 0em 2em 2em' }}>
       <Col>
