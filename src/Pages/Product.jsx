@@ -26,8 +26,10 @@ import CatList from '../Common/CategoryList.jsx'
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [catName, setCatName] = useState([]);
     const [cartCount, setCartCount] = useState(0);
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState();
     const [existingCart, setExistingCart] = useState([]);
+    const [items, setItems] = useState([]);
+
 
 
     const { category } = useParams();
@@ -192,26 +194,17 @@ import CatList from '../Common/CategoryList.jsx'
       const uniqueItemCount = Object.keys(existingCartData).length;
       setCartCount(uniqueItemCount);
       setExistingCart(existingCartData)    
-      console.log(sessionId, existingCart, uniqueItemCount);
+      console.log(existingCartData, uniqueItemCount);
     };
-
-    const handleCartClick = () => {
-      setShowModal(true);
-      console.log(sessionId, cartCount, existingCart);
-
-    };
-
-    const handleCartUnClick = () => {
-      setShowModal(false);
-      console.log(sessionId, cartCount, existingCart);
-
-    };
-
-
+ 
   useEffect(() => {
     setFilteredProducts(products.filter(product => product.categoryId  === Number(category)));
     // setCatName(categories.map((category,idx) => category.id === Number(category)));
   },[category]);
+  useEffect(() => {
+    console.log(existingCart); // Will show the updated value of existingCart
+  }, [existingCart]);
+
 
   const categoryMap = categories.reduce((map, category) => {
     map[category.id] = category.text;
@@ -246,15 +239,19 @@ import CatList from '../Common/CategoryList.jsx'
         </p>
       </Col>
       <Col style={{float: 'right'}}>
-      <Button variant="outline-secondary" onClick={handleCartClick} style={{ color: '#EADCBD', float: 'right'}}>
+      <Button variant="outline-secondary" onClick={() => setShowModal(true)} style={{ color: '#EADCBD', float: 'right'}}>
+      
       <span className={styled.count}>{Number(cartCount)}</span>
-      <ReceiptModal
-        show={showModal}
-        onHide={handleCartUnClick}
-        existingCart={existingCart}
-      />
+    
           <FaShoppingCart />
         </Button>
+        <ReceiptModal
+  show={showModal}
+  onHide={() => setShowModal(false)}
+  existingCart={existingCart}
+  setExistingCart={setExistingCart}
+  setCartCount={setCartCount}
+      />
       </Col>
       </Row>
     </Container>

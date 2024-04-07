@@ -1,42 +1,80 @@
 // ReceiptModal.js
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button,Col } from 'react-bootstrap';
 
-const ReceiptModal = ({ show, onHide, existingCart }) => {
-  const existingCartArray = Object.values(existingCart);
+const ReceiptModal = ({ show, onHide, existingCart, setExistingCart, setCartCount }) => {
+  // const existingCartArray = Object.values(existingCart);
 
-  const [items, setItems] = useState(existingCartArray);
-  const [quantity, setQuantity] = useState(1);
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    // Convert existingCart object into an array of values
+    const cartItems = Object.values(existingCart);
+    setItems(cartItems);
+  }, [existingCart]);
+
+  // const [quantity, setQuantity] = useState(1);
 
 
-  const totalPrice = Object.values(existingCart).reduce((total, product) => {
+
+  const totalPrice = items.reduce((total, product) => {
     const priceWithoutDollarSign = parseFloat(product.price.replace('$', ''));
     return total + priceWithoutDollarSign;
   }, 0);
 
+  // const handleRemoveItem = (itemId) => {
+  //   // Remove the item with the given itemId from items array
+  //   setItems(cartItems => cartItems.filter(item => item.id !== itemId));
+  // };
+  
+
   const handleRemoveItem = (itemId) => {
-    // Remove the item with the given itemId from the receipt
-    const updatedItems = items.filter((item) => item.id !== itemId);
-    setItems(updatedItems);
+    setExistingCart((prevCart) => {
+      const updatedCart = { ...prevCart };
+      delete updatedCart[itemId];
+      return updatedCart;
+    });
+
+    // Update cart count
+    setCartCount((prevCount) => prevCount - 1);
   };
 
-  const handleAdjustQuantity = (itemId, newQuantity) => {
-    // Update the quantity of the item with the given itemId
-    const updatedItems = items.map((item) =>
-      item.id === itemId ? { ...item, quantity: newQuantity } : item
-    );
-    setItems(updatedItems);
-    setQuantity(newQuantity);
-  };
+
   
- 
+
+useEffect(() => {
+    console.log(items);
+}, [items]);
+
+const sendShoppingListToWhatsApp = (items) => {
+  // Ensure items is an array
+  const shoppingList = Array.isArray(items) ? items : [];
+  console.log(shoppingList);
+
+  // Calculate total amount
+  const totalAmount = totalPrice
+
+  // Construct message
+  const itemlist = shoppingList.map(item => `-${item.description} :${item.price}`).join('\n');
+  // const itemPrice = shoppingList.map(item => `${item.price}`).join('\n');
+
+  const message = `Hello Wuranimi, I would like to preorder '\n' ${itemlist} '\n' Total: ${totalAmount}`;
+
+  const whatsappURL = `https://wa.me/+2349025794716?text=${encodeURIComponent(message)}`;
+
+  // Open WhatsApp link
+  window.open(whatsappURL, '_blank');
+  console.log(whatsappURL);
+};
+
+
   return (
-    <Modal show={show} onHide={onHide}>
+    
+    <Modal show={show} onHide={onHide} >
       <Modal.Header closeButton>
-        <Modal.Title>Receipt</Modal.Title>
+        <Modal.Title>Your Invoice</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {(existingCartArray).map((item) => (
+        {items.map((item) => (
           <div  key={item.id}>
             <div style={{padding: '5px', display:'flex'}}>
             <img style={{height:'50px', width: '50px', margin:'5px'}} src={item.image}alt="" />
@@ -44,28 +82,25 @@ const ReceiptModal = ({ show, onHide, existingCart }) => {
            {item.description} <br />
             Price: {item.price}
             </p> 
+            <Button variant="danger" style={{ margin:'0em 1em 0em 14em',fontSize:'.6em', height:'30px'}} onClick={() => handleRemoveItem(item.id)}>Remove</Button>
+
             </div>
-              <div key={item.id} style={{display:'flex', justifyItems:'left', padding:'0em 0em 0em 1em'}}>
-              <Button variant="danger" style={{fontSize:'.6em', height:'30px'}} onClick={() => handleRemoveItem(item.id)}>Remove</Button>
-              <div style={{display:'flex', padding:"0em 0em 0em 10em"}}>
-              <Button variant="primary" onClick={() => handleAdjustQuantity(item.id, quantity + 1)}>+</Button>
-              {/* <span> {quantity}</span> */}
-              <Button variant="primary" onClick={() => handleAdjustQuantity(item.id, quantity - 1)}>-</Button>
-              </div>
-            
-              </div>
+              
           </div>
     
             
         ))}
       </Modal.Body>
       <Modal.Footer>
-        <div>
+        <Col className='d-flex justify-content-between'>
           <p>Total: ${totalPrice}</p>
-        </div>
-        <Button variant="secondary" onClick={onHide}>
-          Close
+         
+        <Button variant="primary" onClick={() => sendShoppingListToWhatsApp(items)}>
+          Order Now
         </Button>
+
+        </Col>
+
       </Modal.Footer>
     </Modal>
   );
