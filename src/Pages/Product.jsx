@@ -223,14 +223,14 @@ import CatList from '../Common/CategoryList.jsx'
 
     return (
       <div>
-      <Row style={{padding:'1em', textDecorationLine:'none'}} className="justify-content-center">
+      {/* <Row style={{padding:'1em', textDecorationLine:'none'}} className="justify-content-center">
 
           {categories.map((category, id) => (
             <Col key={category.id} className="d-flex justify-content-center">
               <CatList category={category} />
             </Col>
           ))}
-        </Row>
+        </Row> */}
       <Container>
       <Row style={{margin: '2em 0em 2em 2em' }}>
       <Col>
@@ -271,7 +271,7 @@ import CatList from '../Common/CategoryList.jsx'
           )}
         </Pagination>
 
-        <AboutUsPage />
+        {/* <AboutUsPage /> */}
 
       </div>
     );

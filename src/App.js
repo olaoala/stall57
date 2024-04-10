@@ -8,9 +8,9 @@ import AboutUsPage from './Pages/Contact.jsx';
 function App() {
   return (
     <Router>
-      {/* <LandingPage/> */}
+      <LandingPage/>
       <Routes>
-      <Route path="/" element={<LandingPage />} />
+      {/* <Route path="/" element={<LandingPage />} /> */}
         <Route path="/category/:category" element={<ProductPage />} />
         {/* <Route path="/about" element={<AboutUsPage />} /> */}
         

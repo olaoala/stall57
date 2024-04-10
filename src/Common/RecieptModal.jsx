@@ -1,10 +1,11 @@
 // ReceiptModal.js
 import React, { useState, useEffect } from 'react';
 import { Modal, Button,Col } from 'react-bootstrap';
+import PaymentLogic from '../Pages/Payment.jsx'
 
 const ReceiptModal = ({ show, onHide, existingCart, setExistingCart, setCartCount }) => {
   // const existingCartArray = Object.values(existingCart);
-
+  const [showModal, setShowModal] = useState(false);
   const [items, setItems] = useState([]);
   useEffect(() => {
     // Convert existingCart object into an array of values
@@ -21,11 +22,6 @@ const ReceiptModal = ({ show, onHide, existingCart, setExistingCart, setCartCoun
     return total + priceWithoutDollarSign;
   }, 0);
 
-  // const handleRemoveItem = (itemId) => {
-  //   // Remove the item with the given itemId from items array
-  //   setItems(cartItems => cartItems.filter(item => item.id !== itemId));
-  // };
-  
 
   const handleRemoveItem = (itemId) => {
     setExistingCart((prevCart) => {
@@ -33,8 +29,6 @@ const ReceiptModal = ({ show, onHide, existingCart, setExistingCart, setCartCoun
       delete updatedCart[itemId];
       return updatedCart;
     });
-
-    // Update cart count
     setCartCount((prevCount) => prevCount - 1);
   };
 
@@ -45,26 +39,26 @@ useEffect(() => {
     console.log(items);
 }, [items]);
 
-const sendShoppingListToWhatsApp = (items) => {
-  // Ensure items is an array
-  const shoppingList = Array.isArray(items) ? items : [];
-  console.log(shoppingList);
+// const sendShoppingListToWhatsApp = (items) => {
+//   // Ensure items is an array
+//   const shoppingList = Array.isArray(items) ? items : [];
+//   console.log(shoppingList);
 
-  // Calculate total amount
-  const totalAmount = totalPrice
+//   // Calculate total amount
+//   const totalAmount = totalPrice
 
-  // Construct message
-  const itemlist = shoppingList.map(item => `-${item.description} :${item.price}`).join('\n');
-  // const itemPrice = shoppingList.map(item => `${item.price}`).join('\n');
+//   // Construct message
+//   const itemlist = shoppingList.map(item => `-${item.description} :${item.price}`).join('\n');
+//   // const itemPrice = shoppingList.map(item => `${item.price}`).join('\n');
 
-  const message = `Hello Wuranimi, I would like to preorder '\n' ${itemlist} '\n' Total: ${totalAmount}`;
+//   const message = `Hello Wuranimi, I would like to preorder '\n' ${itemlist} '\n' Total: ${totalAmount}`;
 
-  const whatsappURL = `https://wa.me/+2349025794716?text=${encodeURIComponent(message)}`;
+//   const whatsappURL = `https://wa.me/+2349025794716?text=${encodeURIComponent(message)}`;
 
-  // Open WhatsApp link
-  window.open(whatsappURL, '_blank');
-  console.log(whatsappURL);
-};
+//   // Open WhatsApp link
+//   window.open(whatsappURL, '_blank');
+//   console.log(whatsappURL);
+// };
 
 
   return (
@@ -95,9 +89,15 @@ const sendShoppingListToWhatsApp = (items) => {
         <Col className='d-flex justify-content-between'>
           <p>Total: ${totalPrice}</p>
          
-        <Button variant="primary" onClick={() => sendShoppingListToWhatsApp(items)}>
+        <Button variant="primary" onClick={() => setShowModal(true)}>
           Order Now
         </Button>
+        <PaymentLogic
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          total={totalPrice}
+          cartList={items}
+      />
 
         </Col>
 
