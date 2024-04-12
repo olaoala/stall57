@@ -25,7 +25,7 @@ const PaymentLogic = ({ show, onHide, total }) => {
     e.preventDefault();
     const paystack = new Paystackpop()
     paystack.newTransaction({
-      key: 'pk_live_bfcec00387948c33e9b9a146735988ba0d67315f',
+      PublicKey: 'pk_live_bfcec00387948c33e9b9a146735988ba0d67315f',
       amount: total,
       email: formData.email,
       firstname: formData.firstname,
