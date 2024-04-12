@@ -87,7 +87,7 @@ useEffect(() => {
       </Modal.Body>
       <Modal.Footer>
         <Col className='d-flex justify-content-between'>
-          <p>Total: ${totalPrice}</p>
+          <p>Total: #{totalPrice}</p>
          
         <Button variant="primary" onClick={() => setShowModal(true)}>
           Order Now

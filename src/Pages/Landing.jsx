@@ -37,15 +37,15 @@ const LandingPage = () => {
         <NavBar/>
       <Row >
         <WobbleDiv className=" text-center animate_animated animate__infinite">
-        <Col className={styles.welcome}  style={{fontFamily:'bubble', color:'#FCF1F5'}}>
-          <h1>Welcome to Stall 57</h1>
+        <Col className={styles.welcome}  style={{fontFamily:'bubble', color:'#FCF1F5', margin:'7em 0em 2em 0em'}}>
+          <h1 style={{fontSize:'40px'}}>Welcome to Stall 66</h1>
           <h6>The everything stall</h6>
         </Col>
         </WobbleDiv>
       </Row>
 
       <Row className="justify-content-center">
-      <h6 className="text-center mb-5" style={{fontFamily:'scribble', color:'#FCF1F5', fontSize:"30px"}} >What would you like to get?</h6>
+      <h6 className="text-center" style={{fontFamily:'scribble', color:'#FCF1F5', fontSize:"25px", marginBottom:'5em'}} >What would you like to get?</h6>
 
           {categories.map((category, id) => (
             <Col key={category.id} className="d-flex justify-content-center">

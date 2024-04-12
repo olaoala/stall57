@@ -2,12 +2,13 @@
     padding: auto;
     background-color: transparent;
     margin-bottom: 2em;
-    border: .1em #745195 solid;
+    border: .1em #EADCBD solid;
     border-radius: 1em;
     width: 22em;
+    color: #fff;
 }
 .img{
     height: 17em;
     padding: .6em;
-    border-radius: 2em;
+    border-radius: 1em;
 }

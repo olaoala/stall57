@@ -3,17 +3,26 @@ import { useParams } from 'react-router-dom';
 import ProductCard from '../Common/ProductCards';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import Pagination from 'react-bootstrap/Pagination';
-import gifts from '../Assets/gifts.jpeg'
 import jewelry from '../Assets/jewelry.jpg'
-import trinkets from '../Assets/trinkets.jpeg'
 import intimates from '../Assets/intimates.jpeg'
-import AboutUsPage from '../Pages/Contact';
 import { v4 as uuidv4 } from 'uuid';
 import ReceiptModal from '../Common/RecieptModal'; 
 import Button from 'react-bootstrap/Button';
 import { FaShoppingCart } from "react-icons/fa";
 import styled from './Css/Product.module.css';
-import CatList from '../Common/CategoryList.jsx'
+import BlueDreams from '../Assets/pj1.jpg';
+import WineDreams from '../Assets/pj2.jpg';
+import BlackDreams from '../Assets/pj3.jpg';
+import BlueBBgirl from '../Assets/pj14.jpg';
+import BrownHoney from '../Assets/pj12.jpg';
+import WaterMelon from '../Assets/pj8.jpg';
+import BeigeCamo from '../Assets/pj6.jpg';
+import PinkButterfly from '../Assets/pj13.jpg';
+import Strawberry from '../Assets/pj15.jpg';
+import BlueNights from '../Assets/pj10.jpg';
+import HeartChecked from '../Assets/pj9.jpg';
+import Hallow from '../Assets/pj7.jpg';
+import PurpleBBgirl from '../Assets/pj5.jpg';
 
 
 
@@ -45,32 +54,23 @@ import CatList from '../Common/CategoryList.jsx'
         image: intimates,
         text: 'Intimates by Jojo Dreams'
       }
-      // {
-      //   id: 3,
-      //   image: trinkets,
-      //   text: 'Organised by Ilewura'
-      // },
-      // {
-      //     id: 4,
-      //     image: gifts,
-      //     text: 'Gift Boxes'
-      //   }
+    
     ];
   
     const products = [
       {
         id: 1,
-        image: jewelry,
-        price: '$29.99',
-        description: 'This is a great product.',
-        categoryId : 1,
+        image: BlueDreams,
+        price: '6000',
+        description: 'Blue Dreams (XL)',
+        categoryId : 2,
         quantity:1
       },
       {
         id: 2,
-        image: jewelry,
-        price: '$39.99',
-        description: 'This product is even better.',
+        image: WineDreams,
+        price: '6000',
+        description: 'Wine Dreams (XL)',
         categoryId : 2,
         quantity:1
 
@@ -78,29 +78,29 @@ import CatList from '../Common/CategoryList.jsx'
       },
       {
         id: 3,
-        image: jewelry,
-        price: '$49.99',
-        description: 'This is the best product.',
-        categoryId : 1,
+        image: BlackDreams,
+        price: '6000',
+        description: 'Black Dreams(XL)',
+        categoryId : 2,
         quantity:1
 
   
       },
       {
           id: 4,
-          image: jewelry,
-          price: '$49.99',
-          description: 'This is the best product.',
-          categoryId : 1,
+          image: PurpleBBgirl,
+          price: '6000',
+          description: 'Purle Baby(L)',
+          categoryId : 2,
           quantity:1
 
   
         },
         {
           id: 5,
-          image: jewelry,
-          price: '$29.99',
-          description: 'This is a great product.',
+          image: BlueBBgirl,
+          price: '6000',
+          description: 'Blue Baby(L)',
           categoryId : 2,
           quantity:1
 
@@ -108,9 +108,9 @@ import CatList from '../Common/CategoryList.jsx'
         },
         {
           id: 6,
-          image: jewelry,
-          price: '$39.99',
-          description: 'This product is even better.',
+          image: Hallow,
+          price: '6000',
+          description: 'Halloweeny (XL)',
           categoryId : 2,
           quantity:1
 
@@ -118,58 +118,65 @@ import CatList from '../Common/CategoryList.jsx'
         },
         {
           id: 7,
-          image: jewelry,
-          price: '$49.99',
-          description: 'This is the best product.',
-          categoryId : 1,
+          image: BrownHoney,
+          price: '6000',
+          description: 'Brown Honey(L)',
+          categoryId : 2,
           quantity:1
 
   
         },
         {
             id: 8,
-            image: jewelry,
-            price: '$49.99',
-            description: 'This is the best product.',
+            image: BlueNights,
+            price: '6000',
+            description: 'Blue Nights (XL)',
             categoryId : 2,
             quantity:1
 
           },
           {
             id: 9,
-            image: jewelry,
-            price: '$49.99',
-            description: 'This is the best product.',
-            categoryId : 1,
+            image: Strawberry,
+            price: '6000',
+            description: 'Strawberry PJ(L)',
+            categoryId : 2,
             quantity:1
 
           },
           {
             id: 10,
-            image: jewelry,
-            price: '$49.99',
-            description: 'This is the best product.',
+            image: PinkButterfly,
+            price: '6000',
+            description: 'Butterfly PJ (XL)',
             categoryId : 2,
             quantity:1
 
           },
           {
             id: 11,
-            image: jewelry,
-            price: '$49.99',
-            description: 'This is the best product.',
+            image: BeigeCamo,
+            price: '6000',
+            description: 'Biege Camo PJ(L)',
             categoryId : 2,
             quantity:1
 
           },
           {
             id: 12 ,
-            image: jewelry,
-            price: '$49.99',
-            description: 'This is the best product.',
-            categoryId : 1,
+            image: WaterMelon,
+            price: '6000',
+            description: 'Watermelon PJ(L)',
+            categoryId : 2,
             quantity:1
-
+          },
+          {
+            id: 13,
+            image: HeartChecked,
+            price: '6000',
+            description: 'Checkered Heart PJ(L)',
+            categoryId : 2,
+            quantity:1
           }
     ];
     const addToCart = (product, quantity) => {
@@ -232,7 +239,7 @@ import CatList from '../Common/CategoryList.jsx'
           ))}
         </Row> */}
       <Container>
-      <Row style={{margin: '2em 0em 2em 2em' }}>
+      <Row style={{margin: '6em 0em 1em 0em' }}>
       <Col>
       <p style={{ fontFamily: 'bubble', color: '#EADCBD', float: 'left'}}>
           {categoryText}
