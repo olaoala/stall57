@@ -27,18 +27,8 @@ const categories = [
   {
     id: 2,
     image: intimates,
-    text: 'Intimates by ...'
-  },
-  {
-    id: 3,
-    image: trinkets,
-    text: 'Organised by Ilewura'
-  },
-  {
-      id: 4,
-      image: gifts,
-      text: 'Gift Boxes'
-    }
+    text: 'Intimates by Jojo Dreams'
+  }
 ];
 const LandingPage = () => {
    
@@ -47,7 +37,7 @@ const LandingPage = () => {
         <NavBar/>
       <Row >
         <WobbleDiv className=" text-center animate_animated animate__infinite">
-        <Col className={styles.welcome}  style={{fontFamily:'bubble', color:'#EADCBD'}}>
+        <Col className={styles.welcome}  style={{fontFamily:'bubble', color:'#FCF1F5'}}>
           <h1>Welcome to Stall 57</h1>
           <h6>The everything stall</h6>
         </Col>
@@ -55,7 +45,7 @@ const LandingPage = () => {
       </Row>
 
       <Row className="justify-content-center">
-      <h6 className="text-center mb-5" style={{fontFamily:'scribble', color:'#EADCBD', fontSize:"30px"}} >What would you like to get?</h6>
+      <h6 className="text-center mb-5" style={{fontFamily:'scribble', color:'#FCF1F5', fontSize:"30px"}} >What would you like to get?</h6>
 
           {categories.map((category, id) => (
             <Col key={category.id} className="d-flex justify-content-center">

@@ -43,18 +43,18 @@ import CatList from '../Common/CategoryList.jsx'
       {
         id: 2,
         image: intimates,
-        text: 'Intimates by ...'
-      },
-      {
-        id: 3,
-        image: trinkets,
-        text: 'Organised by Ilewura'
-      },
-      {
-          id: 4,
-          image: gifts,
-          text: 'Gift Boxes'
-        }
+        text: 'Intimates by Jojo Dreams'
+      }
+      // {
+      //   id: 3,
+      //   image: trinkets,
+      //   text: 'Organised by Ilewura'
+      // },
+      // {
+      //     id: 4,
+      //     image: gifts,
+      //     text: 'Gift Boxes'
+      //   }
     ];
   
     const products = [
@@ -63,7 +63,7 @@ import CatList from '../Common/CategoryList.jsx'
         image: jewelry,
         price: '$29.99',
         description: 'This is a great product.',
-        categoryId : 4,
+        categoryId : 1,
         quantity:1
       },
       {
@@ -71,7 +71,7 @@ import CatList from '../Common/CategoryList.jsx'
         image: jewelry,
         price: '$39.99',
         description: 'This product is even better.',
-        categoryId : 3,
+        categoryId : 2,
         quantity:1
 
   
@@ -121,7 +121,7 @@ import CatList from '../Common/CategoryList.jsx'
           image: jewelry,
           price: '$49.99',
           description: 'This is the best product.',
-          categoryId : 3,
+          categoryId : 1,
           quantity:1
 
   
@@ -131,7 +131,7 @@ import CatList from '../Common/CategoryList.jsx'
             image: jewelry,
             price: '$49.99',
             description: 'This is the best product.',
-            categoryId : 4,
+            categoryId : 2,
             quantity:1
 
           },
@@ -140,7 +140,7 @@ import CatList from '../Common/CategoryList.jsx'
             image: jewelry,
             price: '$49.99',
             description: 'This is the best product.',
-            categoryId : 4,
+            categoryId : 1,
             quantity:1
 
           },
@@ -149,7 +149,7 @@ import CatList from '../Common/CategoryList.jsx'
             image: jewelry,
             price: '$49.99',
             description: 'This is the best product.',
-            categoryId : 4,
+            categoryId : 2,
             quantity:1
 
           },
@@ -158,7 +158,7 @@ import CatList from '../Common/CategoryList.jsx'
             image: jewelry,
             price: '$49.99',
             description: 'This is the best product.',
-            categoryId : 4,
+            categoryId : 2,
             quantity:1
 
           },

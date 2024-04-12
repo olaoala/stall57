@@ -23,7 +23,6 @@ const PaymentLogic = ({ show, onHide, total }) => {
 
   const payWithPaystack = (e) => {
     e.preventDefault();
-    console.log(total)
     const paystack = new Paystackpop()
     paystack.newTransaction({
       key: 'pk_live_bfcec00387948c33e9b9a146735988ba0d67315f',
@@ -41,13 +40,23 @@ const PaymentLogic = ({ show, onHide, total }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Group className="mb-3" controlId="formBasicFirstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter your First name"
+              name="firstname"
+              value={formData.firstname}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicLastName">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter your name"
-              name="name"
-              value={formData.name}
+              placeholder="Enter yourLast name"
+              name="lastname"
+              value={formData.lastname}
               onChange={handleChange}
             />
           </Form.Group>
