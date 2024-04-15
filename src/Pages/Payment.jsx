@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Paystackpop from '@paystack/inline-js'
+import ProductPage from './Product';
 
-const PaymentLogic = ({ show, onHide, total }) => {
+const PaymentLogic = ({ show, onHide, total, cartList }) => {
   const [formData, setFormData] = useState({
     name: '',
     matricNumber: '',
@@ -12,6 +13,8 @@ const PaymentLogic = ({ show, onHide, total }) => {
     firstname: '',
     lastname: ''
   });
+
+  console.log(cartList)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +32,11 @@ const PaymentLogic = ({ show, onHide, total }) => {
       amount: total,
       email: formData.email,
       firstname: formData.firstname,
-      lastname: formData.lastname
+      lastname: formData.lastname,
+      onSuccess: (response) => {
+        const newCart = {}; // Update this with the new cart data
+        updateCartInfo(newCart); // Call the callback function to update cart info in the product page
+      },
     })
   }
 

@@ -29,7 +29,7 @@ import PurpleBBgirl from '../Assets/pj5.jpg';
 
 
   
-  const ProductPage = () => {
+  const ProductPage = ({}) => {
 
     const sessionId = uuidv4();
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -38,7 +38,6 @@ import PurpleBBgirl from '../Assets/pj5.jpg';
     const [showModal, setShowModal] = useState();
     const [existingCart, setExistingCart] = useState([]);
     const [items, setItems] = useState([]);
-
 
 
     const { category } = useParams();
@@ -179,38 +178,38 @@ import PurpleBBgirl from '../Assets/pj5.jpg';
             quantity:1
           }
     ];
-    const addToCart = (product, quantity) => {
-      const sessionId = localStorage.getItem('sessionId') || uuidv4();
-      const existingCartData = JSON.parse(sessionStorage.getItem('cart')) || {};
+    // const addToCart = (product, quantity) => {
+    //   const sessionId = localStorage.getItem('sessionId') || uuidv4();
+    //   const existingCartData = JSON.parse(sessionStorage.getItem('cart')) || {};
     
-      if (existingCartData[product.id]) {
-        existingCartData[product.id].quantity += quantity;
-      } else {
-        existingCartData[product.id] = {
-          ...product,
-          quantity,
-        };
-      }
+    //   if (existingCartData[product.id]) {
+    //     existingCartData[product.id].quantity += quantity;
+    //   } else {
+    //     existingCartData[product.id] = {
+    //       ...product,
+    //       quantity,
+    //     };
+    //   }
  
-      // Update both sessionStorage and localStorage
-      sessionStorage.setItem('cart', JSON.stringify(existingCartData));
-      localStorage.setItem(sessionId, JSON.stringify(existingCartData));
-      localStorage.setItem('sessionId', sessionId);
+    //   // Update both sessionStorage and localStorage
+    //   sessionStorage.setItem('cart', JSON.stringify(existingCartData));
+    //   localStorage.setItem(sessionId, JSON.stringify(existingCartData));
+    //   localStorage.setItem('sessionId', sessionId);
     
-      // Update cart count based on the number of unique items
-      const uniqueItemCount = Object.keys(existingCartData).length;
-      setCartCount(uniqueItemCount);
-      setExistingCart(existingCartData)    
-      console.log(existingCartData, uniqueItemCount);
-    };
+    //   // Update cart count based on the number of unique items
+    //   const uniqueItemCount = Object.keys(existingCartData).length;
+    //   setCartCount(uniqueItemCount);
+    //   setExistingCart(existingCartData)    
+    //   console.log(existingCartData, uniqueItemCount);
+    // };
  
   useEffect(() => {
     setFilteredProducts(products.filter(product => product.categoryId  === Number(category)));
     // setCatName(categories.map((category,idx) => category.id === Number(category)));
   },[category]);
-  useEffect(() => {
-    console.log(existingCart); // Will show the updated value of existingCart
-  }, [existingCart]);
+  // useEffect(() => {
+  //   console.log(existingCart); // Will show the updated value of existingCart
+  // }, [existingCart]);
 
 
   const categoryMap = categories.reduce((map, category) => {
@@ -228,6 +227,15 @@ import PurpleBBgirl from '../Assets/pj5.jpg';
       setCurrentPage(pageNumber);
     };
 
+    // const updateCartInfo = (newCart) => {
+    //   setExistingCart(newCart);
+    //   const uniqueItemCount = Object.keys(newCart).length;
+    //   setCartCount(uniqueItemCount);
+    // };
+    // const updateProducts = (productId) => {
+    //   setProducts(prevProducts => prevProducts.filter(product => product.id !== productId));
+    // };
+  
     return (
       <div>
       {/* <Row style={{padding:'1em', textDecorationLine:'none'}} className="justify-content-center">
@@ -238,7 +246,7 @@ import PurpleBBgirl from '../Assets/pj5.jpg';
             </Col>
           ))}
         </Row> */}
-      <Container>
+      {/* <Container>
       <Row style={{margin: '6em 0em 1em 0em' }}>
       <Col>
       <p style={{ fontFamily: 'bubble', color: '#EADCBD', float: 'left'}}>
@@ -258,14 +266,15 @@ import PurpleBBgirl from '../Assets/pj5.jpg';
   existingCart={existingCart}
   setExistingCart={setExistingCart}
   setCartCount={setCartCount}
+  updateProducts={updateProducts}
       />
       </Col>
       </Row>
-    </Container>
+    </Container> */}
         <Row className="justify-content-center">
           {currentProducts.map((product, idx) => (
             <Col sm={4} key={product.id} className="d-flex justify-content-center">
-              <ProductCard product={product} addToCart={addToCart}/>
+              <ProductCard product={product} />
             </Col>
           ))}
         </Row>
