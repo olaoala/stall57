@@ -33,10 +33,7 @@ const PaymentLogic = ({ show, onHide, total, cartList }) => {
       email: formData.email,
       firstname: formData.firstname,
       lastname: formData.lastname,
-      onSuccess: (response) => {
-        const newCart = {}; // Update this with the new cart data
-        updateCartInfo(newCart); // Call the callback function to update cart info in the product page
-      },
+   
     })
   }
 
