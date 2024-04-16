@@ -1,14 +1,14 @@
 .card{
-    padding: auto;
     background-color: transparent;
     margin-bottom: 2em;
     border: .1em #EADCBD solid;
     border-radius: 1em;
-    width: 22em;
+    width: 19em;
     color: #fff;
 }
 .img{
-    height: 17em;
+    height: 25em;
     padding: .6em;
     border-radius: 1em;
+    object-fit: cover;
 }
