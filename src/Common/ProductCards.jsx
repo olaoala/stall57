@@ -14,7 +14,9 @@ const ProductCard = ({ product, addToCart }) => (
       <Card.Text>{product.description}</Card.Text>
       <Card.Title>{product.price}</Card.Title>
 
-      {/* <Button variant="primary" onClick={() => addToCart(product)}>Add to Cart</Button> */}
+      <button className={styled.btn} onClick={() => addToCart(product)}>Add to Cart </button>
+
+      {/* <Button className={styled.btn} onClick={() => addToCart(product)}>Add to Cart</Button> */}
       {/* <Link to={{ pathname: ' https://wa.me/2349025794716' }}>
       <Button variant="primary" >Yass!! I want this</Button>
       </Link> */}

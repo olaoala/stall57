@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductCard from '../Common/ProductCards';
+import CatList from '../Common/CategoryList' 
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import Pagination from 'react-bootstrap/Pagination';
 import jewelry from '../Assets/jewelry.jpg'
@@ -537,38 +538,38 @@ import Silveranklet from '../Assets/j42.jpg'
           },
 
     ];
-    // const addToCart = (product, quantity) => {
-    //   const sessionId = localStorage.getItem('sessionId') || uuidv4();
-    //   const existingCartData = JSON.parse(sessionStorage.getItem('cart')) || {};
+    const addToCart = (product, quantity) => {
+      const sessionId = localStorage.getItem('sessionId') || uuidv4();
+      const existingCartData = JSON.parse(sessionStorage.getItem('cart')) || {};
     
-    //   if (existingCartData[product.id]) {
-    //     existingCartData[product.id].quantity += quantity;
-    //   } else {
-    //     existingCartData[product.id] = {
-    //       ...product,
-    //       quantity,
-    //     };
-    //   }
+      if (existingCartData[product.id]) {
+        existingCartData[product.id].quantity += quantity;
+      } else {
+        existingCartData[product.id] = {
+          ...product,
+          quantity,
+        };
+      }
  
-    //   // Update both sessionStorage and localStorage
-    //   sessionStorage.setItem('cart', JSON.stringify(existingCartData));
-    //   localStorage.setItem(sessionId, JSON.stringify(existingCartData));
-    //   localStorage.setItem('sessionId', sessionId);
+      // Update both sessionStorage and localStorage
+      sessionStorage.setItem('cart', JSON.stringify(existingCartData));
+      localStorage.setItem(sessionId, JSON.stringify(existingCartData));
+      localStorage.setItem('sessionId', sessionId);
     
-    //   // Update cart count based on the number of unique items
-    //   const uniqueItemCount = Object.keys(existingCartData).length;
-    //   setCartCount(uniqueItemCount);
-    //   setExistingCart(existingCartData)    
-    //   console.log(existingCartData, uniqueItemCount);
-    // };
+      // Update cart count based on the number of unique items
+      const uniqueItemCount = Object.keys(existingCartData).length;
+      setCartCount(uniqueItemCount);
+      setExistingCart(existingCartData)    
+      console.log(existingCartData, uniqueItemCount);
+    };
  
   useEffect(() => {
     setFilteredProducts(products.filter(product => product.categoryId  === Number(category)));
     // setCatName(categories.map((category,idx) => category.id === Number(category)));
   },[category]);
-  // useEffect(() => {
-  //   console.log(existingCart); // Will show the updated value of existingCart
-  // }, [existingCart]);
+  useEffect(() => {
+    console.log(existingCart); // Will show the updated value of existingCart
+  }, [existingCart]);
 
 
   const categoryMap = categories.reduce((map, category) => {
@@ -578,6 +579,7 @@ import Silveranklet from '../Assets/j42.jpg'
 
   const categoryText = categoryMap[Number(category)];
     const [currentPage, setCurrentPage] = React.useState(1);
+
     const productsPerPage = 12; 
     const totalPages = Math.ceil(products.length / productsPerPage);
     const currentProducts = filteredProducts.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage);
@@ -586,26 +588,26 @@ import Silveranklet from '../Assets/j42.jpg'
       setCurrentPage(pageNumber);
     };
 
-    // const updateCartInfo = (newCart) => {
-    //   setExistingCart(newCart);
-    //   const uniqueItemCount = Object.keys(newCart).length;
-    //   setCartCount(uniqueItemCount);
-    // };
+    const updateCartInfo = (newCart) => {
+      setExistingCart(newCart);
+      const uniqueItemCount = Object.keys(newCart).length;
+      setCartCount(uniqueItemCount);
+    };
     // const updateProducts = (productId) => {
     //   setProducts(prevProducts => prevProducts.filter(product => product.id !== productId));
     // };
   
     return (
       <div>
-      {/* <Row style={{padding:'1em', textDecorationLine:'none'}} className="justify-content-center">
+      <Row style={{padding:'1em', textDecorationLine:'none'}} className="justify-content-center">
 
           {categories.map((category, id) => (
             <Col key={category.id} className="d-flex justify-content-center">
               <CatList category={category} />
             </Col>
           ))}
-        </Row> */}
-      {/* <Container>
+        </Row>
+      <Container>
       <Row style={{margin: '6em 0em 1em 0em' }}>
       <Col>
       <p style={{ fontFamily: 'bubble', color: '#EADCBD', float: 'left'}}>
@@ -625,15 +627,14 @@ import Silveranklet from '../Assets/j42.jpg'
   existingCart={existingCart}
   setExistingCart={setExistingCart}
   setCartCount={setCartCount}
-  updateProducts={updateProducts}
       />
       </Col>
       </Row>
-    </Container> */}
+    </Container>
         <Row className="justify-content-center">
           {currentProducts.map((product, idx) => (
-            <Col sm={3} key={product.id} className="d-flex justify-content-center">
-              <ProductCard product={product} />
+            <Col sm={4} key={product.id} className="d-flex justify-content-center">
+              <ProductCard product={product} addToCart={addToCart} />
             </Col>
           ))}
         </Row>

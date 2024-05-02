@@ -44,7 +44,7 @@ const LandingPage = () => {
         </WobbleDiv>
       </Row>
 
-      <Row className="justify-content-center">
+      {/* <Row className="justify-content-center">
       <h6 className="text-center" style={{fontFamily:'scribble', color:'#FCF1F5', fontSize:"25px", marginBottom:'5em'}} >What would you like to get?</h6>
 
           {categories.map((category, id) => (
@@ -52,7 +52,7 @@ const LandingPage = () => {
               <CatList category={category} />
             </Col>
           ))}
-        </Row>
+        </Row> */}
     </Container>
   );
 };
